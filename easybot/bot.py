@@ -3,6 +3,8 @@ import time
 import win32api
 from threading import Thread
 
+import win32con
+
 
 class Bot:
 
@@ -34,7 +36,7 @@ class Bot:
         print('start bot')
         try:
             while not self._stop:
-                if win32api.GetAsyncKeyState(self._power_key) < 0 and not down:
+                if win32api.GetAsyncKeyState(self._power_key) < 0 and win32api.GetAsyncKeyState(win32con.VK_CONTROL) < 0 and not down:
                     down = True
                     if not self._listener.work:
                         self._listener.start()
